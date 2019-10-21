@@ -19,7 +19,7 @@ public class ReaderPrinter<A> implements Actor<A>{
 	public void tell(String message, Actor sender) throws Exception {
 		printer.tell(message, null);
 
-		if(reader ==null && sender!=null) {
+		if(reader == null && sender != null) {
 			reader = new Reader(sender,this);
 			reader.start();
 		}
