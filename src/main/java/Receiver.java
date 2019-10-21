@@ -23,9 +23,7 @@ public class Receiver extends Thread{
                 e.printStackTrace();
             }
             if(nachricht.equals("\u0004")){
-
                 printer.shutdown();
-                socket.shutdown();
                 break;
             }
         }
