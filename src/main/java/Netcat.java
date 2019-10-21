@@ -3,8 +3,6 @@ public class Netcat {
 
     public static void main(String[] args) throws Exception {
 
-        ReaderPrinter readerPrinter;
-        Transceiver transceiver;
 
         if (args.length != 2) {
             System.err.println("Zu wenig Parameter");
@@ -20,12 +18,9 @@ public class Netcat {
 
             int port = Integer.parseInt(args[1]);
 
-            transceiver = new Transceiver(port,host);
-            readerPrinter = new ReaderPrinter(transceiver);
+            Transceiver transceiver = new Transceiver(port,host);
+            ReaderPrinter readerPrinter = new ReaderPrinter(transceiver);
 
-            while(readerPrinter.readerIsAlive() || transceiver.receiverIsAlive()) {
-                Thread.sleep(100);
-            };
         }
 
         if(args[0].equals("-l")){
@@ -34,12 +29,9 @@ public class Netcat {
             int port = Integer.parseInt(args[1]);
             System.out.println("Server started!");
 
-            readerPrinter= new ReaderPrinter();
-            transceiver = new Transceiver(port,readerPrinter);
+            ReaderPrinter  readerPrinter= new ReaderPrinter();
+            Transceiver transceiver= new Transceiver(port,readerPrinter);
 
-            while(readerPrinter.readerIsAlive() || transceiver.receiverIsAlive()) {
-                Thread.sleep(100);
-            };
 
         }
     }

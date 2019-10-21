@@ -3,28 +3,28 @@ import java.util.Scanner;
 public class Reader extends Thread{
 
 	private Actor transceiver;
-    private Actor parent;
-    String str = "";
+    private Actor readerprinter;
+    private String strIn = "";
 
 	
-	public Reader(Actor transceiver, Actor parent){
+	public Reader(Actor transceiver, Actor readerprinter){
 		this.transceiver = transceiver; 
-		this.parent = parent;
+		this.readerprinter = readerprinter;
 	}
 
     @Override
     public void run() {
         Scanner in = new Scanner(System.in);
-        if(str != "") {
+        if(strIn != "") {
             try {
-                transceiver.tell(str, parent);
+                transceiver.tell(strIn, readerprinter);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         while(in.hasNext()) {
             try {
-                transceiver.tell(in.nextLine(), parent);
+                transceiver.tell(in.nextLine(), readerprinter);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -32,8 +32,8 @@ public class Reader extends Thread{
         }
         in.close();
         try {
-            transceiver.tell("\u0004", parent);
-            parent.shutdown();
+            transceiver.tell("\u0004", readerprinter);
+            readerprinter.shutdown();
             transceiver.shutdown();
 
         } catch (Exception e) {
@@ -42,4 +42,7 @@ public class Reader extends Thread{
 
     }
 
+    public void setStrIn(String strIn) {
+        this.strIn = strIn;
+    }
 }

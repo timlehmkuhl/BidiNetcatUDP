@@ -1,16 +1,16 @@
 public class Receiver extends Thread{
 
 	private UDPSocket socket;
-	private Actor printer;
-	private Actor parent;
+	private Actor readprinter;
+	private Actor transceiver;
 	private String nachricht;
     private static final int BUFSIZE = 508;
 
 
-	public Receiver(UDPSocket socket,Actor readprinter,Actor parent){
+	public Receiver(UDPSocket socket,Actor readprinter,Actor transceiver){
 		this.socket = socket;
-		this.printer = readprinter;
-		this.parent = parent;
+		this.readprinter = readprinter;
+		this.transceiver = transceiver;
 	}
 	
 
@@ -18,12 +18,12 @@ public class Receiver extends Thread{
         while (true){
             try {
                 this.nachricht = socket.receive(BUFSIZE);
-                this.printer.tell(nachricht, parent);
+                this.readprinter.tell(nachricht, transceiver);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             if(nachricht.equals("\u0004")){
-                printer.shutdown();
+                readprinter.shutdown();
                 break;
             }
         }

@@ -1,6 +1,6 @@
 public class Printer<A> implements Actor<A>{
 
-    String str;
+    private String strOut;
 
     public Printer() {
     }
@@ -12,13 +12,17 @@ public class Printer<A> implements Actor<A>{
      * @param sender
      */
     @Override
-    public void tell(String message, Actor<A> sender) {
-        str = message;
+    public void tell(String message, Actor sender) {
+        this.strOut = message;
         System.out.println(message);
     }
 
     @Override
     public void shutdown() {
 
+    }
+
+    public String getStrOut() {
+        return strOut;
     }
 }

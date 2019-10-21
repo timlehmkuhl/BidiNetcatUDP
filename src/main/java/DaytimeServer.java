@@ -2,33 +2,28 @@ public class DaytimeServer {
 
     public static void main(String[] args) throws Exception {
 
-
         //Server
         //$ java Netcat -l 2222
         int port = Integer.parseInt(args[1]);
         System.out.println("Server started!");
 
         ReaderPrinter readerPrinter= new ReaderPrinter();
-        Transceiver transceiver = new Transceiver(port,readerPrinter);
+        Transceiver transceiver = new Transceiver(port, readerPrinter);
 
-        while(readerPrinter.readerIsAlive() || transceiver.receiverIsAlive()) {
+        while(true) {
 
             Thread.sleep(100);
 
-            if(readerPrinter.printer.str !=null) {
+            if(readerPrinter.getPrinter().getStrOut() !=null) {
                 String time = java.time.LocalTime.now().toString().substring(0,8);
-                readerPrinter.reader.str = time;
-                readerPrinter.reader.run();
+                readerPrinter.getReader().setStrIn(time);
+                readerPrinter.getReader().run();
 
-                //Thread.sleep(5000);
 
 
             }
 
-
-
         }
-
 
     }
 

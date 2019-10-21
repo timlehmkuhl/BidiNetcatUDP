@@ -1,8 +1,6 @@
 public class DaytimeClient {
 
     public static void main(String[] args) throws Exception {
-        ReaderPrinter readerPrinter;
-        Transceiver transceiver;
 
         String host = args[0];
 
@@ -10,13 +8,10 @@ public class DaytimeClient {
 
         int port = Integer.parseInt(args[1]);
 
-        transceiver = new Transceiver(port, host);
-        readerPrinter = new ReaderPrinter(transceiver);
-        readerPrinter.reader.str = "zitat";
-        while (readerPrinter.readerIsAlive() || transceiver.receiverIsAlive()) {
-            Thread.sleep(100);
+        Transceiver transceiver = new Transceiver(port, host);
+        ReaderPrinter readerPrinter = new ReaderPrinter(transceiver);
+        readerPrinter.getReader().setStrIn("time");
 
-        }
     }
 
 

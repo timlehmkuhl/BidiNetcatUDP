@@ -31,12 +31,8 @@ public class Transceiver<A> implements Actor<A> {
 
 	@Override
 	public void shutdown() {
-	//	transmitter.shutdown();
-      //  udpSocket.shutdown();
+
 	}
-	
-	public boolean receiverIsAlive() {
-		return receiver == null || receiver.isAlive();
-	}
+
 
 }

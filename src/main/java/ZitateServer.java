@@ -38,21 +38,16 @@ public class ZitateServer {
         ReaderPrinter readerPrinter= new ReaderPrinter();
         Transceiver transceiver = new Transceiver(port, readerPrinter);
 
-        while(readerPrinter.readerIsAlive() || transceiver.receiverIsAlive()) {
+        while(true) {
 
             Thread.sleep(100);
 
-            if(readerPrinter.printer.str !=null) {
+            if(readerPrinter.getPrinter().getStrOut() !=null) {
                 String s= lines.get(random) + "\n" + lines.get(random+1);
-                readerPrinter.reader.str = s;
-                readerPrinter.reader.run();
-
-                //Thread.sleep(5000);
-
+                readerPrinter.getReader().setStrIn(s);
+                readerPrinter.getReader().run();
 
             }
-
-
 
         }
 

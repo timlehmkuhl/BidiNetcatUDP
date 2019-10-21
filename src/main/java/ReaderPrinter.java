@@ -1,7 +1,7 @@
 public class ReaderPrinter<A> implements Actor<A>{
 
-	 Reader reader;
-	 Printer printer;
+	 private Reader reader;
+	 private Printer printer;
 
 
 	public ReaderPrinter() {
@@ -9,14 +9,14 @@ public class ReaderPrinter<A> implements Actor<A>{
 	}
 	
 
-	public ReaderPrinter(Actor transceiver) {
+	public ReaderPrinter(Transceiver transceiver) {
 		reader = new Reader(transceiver,this);
 		printer = new Printer();
 		reader.start();
 	}
 
 	@Override
-	public void tell(String message, Actor<A> sender) throws Exception {
+	public void tell(String message, Actor sender) throws Exception {
 		printer.tell(message, null);
 
 		if(reader ==null && sender!=null) {
@@ -26,15 +26,17 @@ public class ReaderPrinter<A> implements Actor<A>{
 	}
 
 
-	public boolean readerIsAlive() {
-		return reader == null || reader.isAlive();
-	}
 
 	@Override
 	public void shutdown() {
 
 	}
 
+	public Reader getReader() {
+		return reader;
+	}
 
-
+	public Printer getPrinter() {
+		return printer;
+	}
 }

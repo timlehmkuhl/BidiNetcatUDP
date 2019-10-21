@@ -1,5 +1,3 @@
-import java.io.ByteArrayInputStream;
-
 public class EchoServer {
 
 
@@ -15,24 +13,17 @@ public class EchoServer {
         ReaderPrinter readerPrinter= new ReaderPrinter();
         Transceiver transceiver = new Transceiver(port,readerPrinter);
 
-        while(readerPrinter.readerIsAlive() || transceiver.receiverIsAlive()) {
+        while(true) {
 
             Thread.sleep(100);
 
-            if(readerPrinter.printer.str !=null) {
-                String s= readerPrinter.printer.str;
-                readerPrinter.reader.str = s;
-                readerPrinter.reader.run();
-
-                //Thread.sleep(5000);
-
-
+            if(readerPrinter.getPrinter().getStrOut() !=null) {
+                String s= readerPrinter.getPrinter().getStrOut();
+                readerPrinter.getReader().setStrIn(s);
+                readerPrinter.getReader().run();
             }
 
-
-
         }
-
 
     }
 }
